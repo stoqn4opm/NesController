@@ -48,7 +48,7 @@ void HEF4021BP::update() {
     clearBitOfTempDataIfNeeded(tempData, currentButton);
   }
   
-  buttonStates = tempData;
+  buttonStates = ~tempData;
 }
 
 int8_t HEF4021BP::getButtonStates() {
