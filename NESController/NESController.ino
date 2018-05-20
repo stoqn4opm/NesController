@@ -2,17 +2,19 @@
 #include "PowerManager.hpp"
 
 namespace {
-HEF4021BP shiftRegister(2, 3, 4);
-PowerManager powerManager(3, 4, 5, 7);
+HEF4021BP shiftRegister(4, 3, 5); // clock, latch, data
+PowerManager powerManager(2, 0b1100, 0b0000, 2, 7); // desiredDelay, checkForState, initialState, powerControl, isCharging
 };
 
 void setup() {
   // put your setup code here, to run once:
+  Serial.begin(9600);
 }
 
 void loop() {
-  // put your main code here, to run repeatedly:
+  
   shiftRegister.update();
   powerManager.shutdownIfNeeded(shiftRegister.getButtonStates());
   if (powerManager.isAboutToShutdown()) { return; }
+  Serial.println(shiftRegister.getButtonStates(), BIN);
 }

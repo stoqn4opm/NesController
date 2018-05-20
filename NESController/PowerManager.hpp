@@ -14,6 +14,7 @@
 class PowerManager {
   private:
     int8_t desiredState;
+    int8_t initialState;
     int8_t delayBeforeExecutionInSecs;
     int8_t powerControlPin;
     int8_t isChargingPin;
@@ -21,11 +22,11 @@ class PowerManager {
     unsigned long patternStartTime;
     bool isInMiddleOfPattern;
     bool isAboutToDie;
-    
+    bool initialStateEntered;
     void breakPattern();
     void shutdown();
   public:
-    PowerManager(int8_t desiredDelay, int8_t checkForState, int8_t powerControl, int8_t isCharging);
+    PowerManager(int8_t desiredDelay, int8_t checkForState, int8_t initialState, int8_t powerControl, int8_t isCharging);
     void shutdownIfNeeded(int8_t input);
     bool isCurrentlyCharging();
     bool isAboutToShutdown();

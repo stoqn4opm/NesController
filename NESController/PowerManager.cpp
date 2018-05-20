@@ -18,25 +18,31 @@
 
 #pragma mark - Constructor
 
-PowerManager::PowerManager(int8_t desiredDelay, int8_t checkForState, int8_t powerControl, int8_t isCharging) {
+PowerManager::PowerManager(int8_t desiredDelay, int8_t checkForState, int8_t initialState, int8_t powerControl, int8_t isCharging) {
   delayBeforeExecutionInSecs = desiredDelay;
   desiredState = checkForState;
   powerControlPin = powerControl;
   isChargingPin = isCharging;
-
+  initialState = initialState;
+  
   pinMode(powerControlPin, OUTPUT);
   pinMode(isChargingPin, INPUT);
-  digitalWrite(powerControlPin, HIGH);
+  digitalWrite(powerControlPin, LOW);
 
   isInMiddleOfPattern = false;
   isAboutToDie = false;
+  initialStateEntered = false;
 }
 
 #pragma mark - Shutdown Procedure
 
 void PowerManager::shutdownIfNeeded(int8_t input) {
 
+  if (input == initialState) { initialStateEntered = true; }
+  if (!initialStateEntered) { return; }
+
   if (isAboutToDie == true) {
+    shutdown(); // just in case
     return;
   }
 
@@ -72,7 +78,8 @@ void PowerManager::breakPattern() {
 }
 
 void PowerManager::shutdown() {
-  digitalWrite(powerControlPin, LOW);
+  initialStateEntered = false;
+  digitalWrite(powerControlPin, HIGH);
 }
 
 #pragma mark - Computed Variables
