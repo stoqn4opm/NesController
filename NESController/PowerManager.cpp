@@ -60,7 +60,7 @@ void PowerManager::shutdownIfNeeded(int8_t input) {
 void PowerManager::autoShutdownIfNeeded(int8_t input) {
   
   unsigned long currentTime = millis();
-  if (isInMiddleOfAutoShutdown && autoShutdownStartTime < currentTime && currentTime - autoShutdownStartTime > autoShutDownDelay * 1000) {
+  if (isInMiddleOfAutoShutdown && autoShutdownStartTime < currentTime && currentTime - autoShutdownStartTime > (unsigned long)autoShutDownDelay * 1000) {
     isInMiddleOfAutoShutdown = false;
     shutdown();
     return;
