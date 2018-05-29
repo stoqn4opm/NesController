@@ -27,7 +27,7 @@ PowerManager::PowerManager(int8_t desiredDelay, int8_t checkForState, int8_t ini
   autoShutDownDelay = secondsBeforeAutoShutdown;
 
   pinMode(powerControlPin, OUTPUT);
-  pinMode(isChargingPin, INPUT);
+//  pinMode(isChargingPin, INPUT);
   digitalWrite(powerControlPin, LOW);
 
   isInMiddleOfPattern = false;

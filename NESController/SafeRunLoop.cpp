@@ -7,6 +7,12 @@
 //
 
 #include "SafeRunLoop.hpp"
+#include "StateMonitor.hpp"
+
+namespace {
+
+  StateMonitor stateMonitor(6, 7, 8); // StateMonitor(int8_t isChargingPin, int8_t isChargedPin, int8_t stateLedPin)
+};
 
 #pragma mark - Main Application Loop
 
@@ -14,5 +20,9 @@
 /// shutdown the microcontroller
 
 void SafeRunLoop::run(HEF4021BP shiftRegister) {
-    Serial.println(shiftRegister.getButtonStates(), BIN);
+    Serial.print(shiftRegister.getButtonStates(), BIN);
+    pinMode(6, INPUT);
+    bool isCharging = digitalRead(6) == LOW;
+    Serial.print(" ");
+    Serial.println(isCharging);
 }
