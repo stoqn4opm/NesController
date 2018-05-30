@@ -12,14 +12,20 @@
 #include "Arduino.h"
 
 class PowerManager {
-  private:
-    int8_t desiredState;
-    int8_t startState;
-    int8_t delayBeforeExecutionInSecs;
-    int8_t powerControlPin;
-    int8_t isChargingPin;
-    int8_t autoShutDownDelay;
     
+#pragma mark - Configuration
+    
+private:
+    PowerManager();
+    int8_t desiredState                   = 0b1100;
+    int8_t startState                     = 0b0000;
+    int8_t delayBeforeExecutionInSecs   = 2;
+    int8_t powerControlPin              = 2;
+    int8_t autoShutDownDelay            = 120; // seconds
+    
+#pragma mark - Instance Variables
+
+protected:
     unsigned long patternStartTime;
     unsigned long autoShutdownStartTime;
     bool isInMiddleOfPattern;
@@ -30,11 +36,14 @@ class PowerManager {
     void shutdown();
     void handleExpectedInput();
     void autoShutdownIfNeeded(int8_t input);
-  public:
-    PowerManager(int8_t desiredDelay, int8_t checkForState, int8_t initialState, int8_t powerControl, int8_t isCharging, int8_t secondsBeforeAutoShutdown);
+    static PowerManager *instance;
+
+#pragma mark - Public Interface
+    
+public:
+    static PowerManager *shared();
     void shutdownIfNeeded(int8_t input);
-    bool isCurrentlyCharging();
-    bool isAboutToShutdown();
+    bool wantsShutdown();
 };
 
 #endif /* PowerManager_hpp */

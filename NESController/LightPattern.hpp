@@ -24,14 +24,14 @@ class ChargingPattern: public LightPattern {
 private: bool isFirstExecution = true;
 public:
     ChargingPattern(int8_t pinNumber);
-    virtual void update() = 0;
+    virtual void update();
 };
 
 class ChargedPattern: public LightPattern {
 private: bool isFirstExecution = true;
 public:
     ChargedPattern(int8_t pinNumber);
-    virtual void update() = 0;
+    virtual void update();
 };
 
 class ConnectedPattern: public LightPattern {
@@ -40,7 +40,7 @@ private:
     int period;
 public:
     ConnectedPattern(int8_t pinNumber, int8_t verticalCosineTranslation, int timePeriod);
-    virtual void update() = 0;
+    virtual void update();
 };
 
 class NotConnectedPattern: public LightPattern {
@@ -52,7 +52,7 @@ private:
     bool lastState = false;
 public:
     NotConnectedPattern(int8_t pinNumber, int8_t delaysTimes, int8_t timesCount);
-    virtual void update() = 0;
+    virtual void update();
 };
 
 class LowBatteryPattern: public LightPattern {
@@ -62,7 +62,14 @@ private:
     int8_t blinkPerionInSecs;
 public:
     LowBatteryPattern(int8_t pinNumber, int8_t period);
-    virtual void update() = 0;
+    virtual void update();
+};
+
+class OffPattern: public LightPattern {
+private: bool isFirstExecution = true;
+public:
+    OffPattern(int8_t pinNumber);
+    virtual void update();
 };
 
 #endif /* LightPattern_hpp */

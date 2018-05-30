@@ -5,35 +5,29 @@
 //  Created by Stoyan Stoyanov on 22.04.18.
 //  Copyright © 2018 Stoyan Stoyanov. All rights reserved.
 //
-/*
-  int8_t desiredState;
-    int8_t delayBeforeExecutionInSecs;
-    int8_t powerControlPin;
-    int8_t isChargingPin;
 
-    int patternStartTime;
-    int currentExecutionTime;
-*/
 #include "PowerManager.hpp"
 
-#pragma mark - Constructor
+#pragma mark - Singleton Reference
 
-PowerManager::PowerManager(int8_t desiredDelay, int8_t checkForState, int8_t initialState, int8_t powerControl, int8_t isCharging, int8_t secondsBeforeAutoShutdown) {
-  delayBeforeExecutionInSecs = desiredDelay;
-  desiredState = checkForState;
-  powerControlPin = powerControl;
-  isChargingPin = isCharging;
-  startState = initialState;
-  autoShutDownDelay = secondsBeforeAutoShutdown;
-
+PowerManager::PowerManager() {
+    
   pinMode(powerControlPin, OUTPUT);
-//  pinMode(isChargingPin, INPUT);
   digitalWrite(powerControlPin, LOW);
 
   isInMiddleOfPattern = false;
   isInMiddleOfAutoShutdown = false;
   isAboutToDie = false;
   initialStateEntered = false;
+}
+
+PowerManager* PowerManager::instance = 0;
+
+PowerManager* PowerManager::shared() {
+    if (instance == 0) {
+        instance = new PowerManager();
+    }
+    return instance;
 }
 
 #pragma mark - Shutdown Procedures
@@ -113,11 +107,7 @@ void PowerManager::shutdown() {
 
 #pragma mark - Computed Variables
 
-bool PowerManager::isCurrentlyCharging() {
-  return digitalRead(isChargingPin) == LOW;
-}
-
-bool PowerManager::isAboutToShutdown() {
+bool PowerManager::wantsShutdown() {
   return isAboutToDie;
 }
 

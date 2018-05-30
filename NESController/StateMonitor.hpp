@@ -10,6 +10,9 @@
 #define StateMonitor_hpp
 
 #include "Arduino.h"
+#include "CommunicationManager.hpp"
+#include "PowerManager.hpp"
+#include "LightPattern.hpp"
 
 #pragma mark - Device States
 
@@ -29,13 +32,18 @@ private:
     int8_t chargingPin;
     int8_t chargedPin;
     int8_t ledPin;
-    void getBlinkPattern();
-    void updateBlinkPattern();
-    State currentState = off;
+    void switchBlinkPatternToState(State state);
+    LightPattern *currentBlinkPattern;
+    State lastState;
+    bool isCharing();
+    bool isCharged();
+    unsigned long lastCheckTime;
+    int8_t checkDelayInSeconds;
 public:
-    StateMonitor(int8_t isChargingPin, int8_t isChargedPin, int8_t stateLedPin);
+    StateMonitor(int8_t isChargingPin, int8_t isChargedPin, int8_t stateLedPin, int8_t secondsToNextCheck);
     State getCurrentState();
     void update();
+    
 };
 
 

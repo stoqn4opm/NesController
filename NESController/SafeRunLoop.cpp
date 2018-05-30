@@ -11,7 +11,7 @@
 
 namespace {
 
-  StateMonitor stateMonitor(6, 7, 8); // StateMonitor(int8_t isChargingPin, int8_t isChargedPin, int8_t stateLedPin)
+  StateMonitor stateMonitor(6, 7, A0, 1); // StateMonitor(int8_t isChargingPin, int8_t isChargedPin, int8_t stateLedPin, int8_t secondsToNextCheck)
 };
 
 #pragma mark - Main Application Loop
@@ -21,8 +21,8 @@ namespace {
 
 void SafeRunLoop::run(HEF4021BP shiftRegister) {
     Serial.print(shiftRegister.getButtonStates(), BIN);
-    pinMode(6, INPUT);
-    bool isCharging = digitalRead(6) == LOW;
+    stateMonitor.update();
     Serial.print(" ");
-    Serial.println(isCharging);
+    State state = stateMonitor.getCurrentState();
+    Serial.println(state);
 }

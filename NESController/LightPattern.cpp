@@ -58,6 +58,9 @@ void LowBatteryPattern::update() {
     if (currentTime > startTime && currentTime - startTime >= (long)blinkPerionInSecs * 1000) {
         digitalWrite(pin, lastState ? LOW : HIGH);
         lastState = !lastState;
+        startTime = currentTime;
+    }
+    if (currentTime < startTime) {
         startTime = currentTime; // so that overflow will never occur
     }
 }
@@ -81,6 +84,19 @@ void NotConnectedPattern::update() {
         currentDelayIndex = (int8_t)((currentDelayIndex + 1) % count);
         digitalWrite(pin, lastState ? LOW : HIGH);
         lastState = !lastState;
+        startTime = currentTime;
+    }
+    if (currentTime < startTime) {
         startTime = currentTime; // so that overflow will never occur
     }
+}
+
+#pragma mark - Off Pattern
+
+OffPattern::OffPattern(int8_t pinNumber) { pin = pinNumber; pinMode(pin, OUTPUT);};
+
+void OffPattern::update() {
+    if (!isFirstExecution) return;
+    digitalWrite(pin, LOW);
+    isFirstExecution = false;
 }
