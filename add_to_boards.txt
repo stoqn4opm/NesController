@@ -15,9 +15,8 @@ atmega328bb.bootloader.lock_bits=0x0F
 
 atmega328bb.build.mcu=atmega328p
 atmega328bb.build.f_cpu=8000000L
-atmega328bb.build.core=arduino:arduino
-atmega328bb.build.variant=arduino:standard
+atmega328bb.build.core=arduino
+atmega328bb.build.variant=standard
 
-
-atmega328bb.bootloader.tool=arduino:avrdude
-atmega328bb.upload.tool=arduino:avrdude
+atmega328bb.bootloader.tool=avrdude
+atmega328bb.upload.tool=avrdude
