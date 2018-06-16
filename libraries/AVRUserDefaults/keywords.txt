@@ -1,0 +1,3 @@
+AVRUserDefaults	KEYWORD1
+isBluetoothAlreadyConfigured	KEYWORD2
+setIsBluetoothAlreadyConfigured	KEYWORD2
