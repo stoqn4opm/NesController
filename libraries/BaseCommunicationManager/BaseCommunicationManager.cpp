@@ -6,9 +6,9 @@
 //  Copyright © 2018 Stoyan Stoyanov. All rights reserved.
 //
 
-#include "BaseCommunicationManager.hpp"
+#include "BaseCommunicationManager.h"
 
-#pragma mark - Common Init Parts
+//MARK: - Common Init Parts
 
 BaseCommunicationManager* BaseCommunicationManager::instance = 0;
 
@@ -56,12 +56,12 @@ void BaseCommunicationManager::enterMode(int8_t mode) {
     
     digitalWrite(POWER_CONTROL_PIN, LOW); // for N Channel mosfet base control
     digitalWrite(MODE_CONTROL_KEY_PIN, mode == MODE_NORMAL ? LOW : HIGH);
-    delay(10);
+    vTaskDelay(10);
     digitalWrite(POWER_CONTROL_PIN, HIGH); // for N Channel mosfet base control
-    delay(BL_BOOT_TIME); // because i saw it fail on 700
+    vTaskDelay(BL_BOOT_TIME); // because i saw it fail on 700
 }
 
-#pragma mark - Common Send/Receive Data
+//MARK: - Common Send/Receive Data
 
 #define PACKET_TYPE_1 0b00000000 // for future use UNSAFE, because non set uint defaults to 0
 #define PACKET_TYPE_2 0b01000000 // used for sending 2 keypresses
@@ -121,13 +121,13 @@ BluetoothPacket BaseCommunicationManager::getData() {
     return result;
 }
 
-#pragma mark - Computed Variables
+//MARK: - Computed Variables
 
 bool BaseCommunicationManager::isConnected() {
     return digitalRead(CONNECTION_CHECK_PIN) == HIGH;
 }
 
-#pragma mark - State Update
+//MARK: - State Update
 
 void BaseCommunicationManager::update() {
     

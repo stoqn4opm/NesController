@@ -8,7 +8,7 @@
 
 #include "AVRUserDefaults.h"
 
-#pragma mark - Bluetooth Configured
+//MARK: - Bluetooth Configured
 
 bool AVRUserDefaults::isBluetoothAlreadyConfigured() {
     byte storage;
@@ -24,7 +24,7 @@ void AVRUserDefaults::setIsBluetoothAlreadyConfigured(bool isConfigured) {
     eeprom_write_block((const void*)&record, (void*)0, sizeof(record)); // value to be written, address, length of the write
 }
 
-#pragma mark - Slave Found
+//MARK: - Slave Found
 
 bool AVRUserDefaults::isSlaveAlreadyConfigured() {
     byte storage;

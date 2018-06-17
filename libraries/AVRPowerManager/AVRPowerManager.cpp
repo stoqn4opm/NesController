@@ -9,7 +9,7 @@
 #include "AVRPowerManager.h"
 #include "AVRSleep.hpp"
 
-#pragma mark - Singleton Reference
+//MARK: - Singleton Reference
 
 AVRPowerManager::AVRPowerManager() {
   AVRSleep::setup();
@@ -29,7 +29,7 @@ AVRPowerManager* AVRPowerManager::shared() {
   return instance;
 }
 
-#pragma mark - Shutdown Procedures
+//MARK: - Shutdown Procedures
 
 void AVRPowerManager::shutdownIfNeeded(int8_t input) {
 
@@ -104,7 +104,7 @@ void AVRPowerManager::waitForStartState(int8_t input) {
   }
 }
 
-#pragma mark - Helper Methods
+//MARK: - Helper Methods
 
 void AVRPowerManager::breakPattern() {
   isInMiddleOfPattern = false;
@@ -115,7 +115,7 @@ void AVRPowerManager::shutdown() {
   isAboutToDie = true;
 }
 
-#pragma mark - Computed Variables
+//MARK: - Computed Variables
 
 bool AVRPowerManager::wantsShutdown() {
   return isAboutToDie;

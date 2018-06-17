@@ -12,7 +12,7 @@
 #include "Arduino.h"
 #include <avr/eeprom.h>
 
-#pragma mark - Permanent Storage Interface
+//MARK: - Permanent Storage Interface
 
 /*
  * Add New properties/flags in a similar fashion.

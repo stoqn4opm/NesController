@@ -8,7 +8,7 @@
 
 #include "HEF4021BP.h"
 
-#pragma mark - Constants
+//MARK: - Constants
 
 /*
 Bit sequence:
@@ -22,7 +22,7 @@ LEFT_BUTTON      = 6;
 RIGHT_BUTTON     = 7;
 */
 
-#pragma mark - Constructor
+//MARK: - Constructor
 
 HEF4021BP::HEF4021BP(int8_t clock, int8_t latch, int8_t data) {
   clockPin = clock;
@@ -38,7 +38,7 @@ HEF4021BP::HEF4021BP(int8_t clock, int8_t latch, int8_t data) {
   digitalWrite(latchPin, LOW);
 }
 
-#pragma mark - Actions
+//MARK: - Actions
 
 void HEF4021BP::update() {
 
@@ -56,7 +56,7 @@ int8_t HEF4021BP::getButtonStates() {
   return buttonStates;
 }
 
-#pragma mark - Helpers
+//MARK: - Helpers
 
 void HEF4021BP::pulse(int8_t pin) {
   digitalWrite(pin, HIGH);

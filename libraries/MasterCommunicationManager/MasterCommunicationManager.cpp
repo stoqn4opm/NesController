@@ -8,7 +8,7 @@
 
 #include "MasterCommunicationManager.hpp"
 
-#pragma mark - Master Singleton Reference
+//MARK: - Master Singleton Reference
 
 MasterCommunicationManager::MasterCommunicationManager() {
     
@@ -34,7 +34,7 @@ BaseCommunicationManager* MasterCommunicationManager::shared() {
     return instance;
 }
 
-#pragma mark - Update Loop
+//MARK: - Update Loop
 
 void MasterCommunicationManager::update() {
     BaseCommunicationManager::update();
@@ -93,7 +93,7 @@ void MasterCommunicationManager::searchForNewSlave() {
     Serial.begin(BAUD_RATE_NORMAL);
 }
 
-#pragma mark - Module Specific Init
+//MARK: - Module Specific Init
 
 void MasterCommunicationManager::initializeAndFindSlaveIfNeeded() {
     
@@ -137,7 +137,7 @@ bool MasterCommunicationManager::performModuleInit() {
     return true;
 }
 
-#pragma mark - Searching For Slave
+//MARK: - Searching For Slave
 
 char* MasterCommunicationManager::findSlave() {
     
@@ -197,7 +197,7 @@ char* MasterCommunicationManager::findSlave() {
     return result; // sample result: 98D3,21,FC7AF7
 }
 
-#pragma mark - Connect with Slave
+//MARK: - Connect with Slave
 
 bool MasterCommunicationManager::tryConnectingWithSlave(char slave[BL_ADDRESS_LENGTH]) {
 

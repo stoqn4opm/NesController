@@ -13,7 +13,7 @@
 
 class AVRPowerManager {
 
-#pragma mark - Configuration
+//MARK: - Configuration
 
 private:
     AVRPowerManager();
@@ -22,7 +22,7 @@ private:
     int8_t delayBeforeExecutionInSecs   = 2;
     int8_t autoShutDownDelay            = 120; // seconds
 
-#pragma mark - Instance Variables
+//MARK: - Instance Variables
 
     unsigned long patternStartTime;
     unsigned long autoShutdownStartTime;
@@ -37,7 +37,7 @@ private:
     static AVRPowerManager *instance;
     void waitForStartState(int8_t input);
 
-#pragma mark - Public Interface
+//MARK: - Public Interface
 
   public:
     static AVRPowerManager *shared();

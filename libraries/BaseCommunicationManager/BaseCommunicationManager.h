@@ -9,7 +9,7 @@
 #ifndef CommunicationManager_hpp
 #define CommunicationManager_hpp
 
-#pragma mark - Communication Configuration
+//MARK: - Communication Configuration
 
 #define BAUD_RATE_ATMODE 38400
 #define BAUD_RATE_NORMAL 9600
@@ -28,8 +28,9 @@
 
 #include "Arduino.h"
 #include <AVRUserDefaults.h>
+#include <Arduino_FreeRTOS.h>
 
-#pragma mark - Base Abstract Class Definition
+//MARK: - Base Abstract Class Definition
 
 typedef enum : uint8_t {
     bluetoothInitializing,

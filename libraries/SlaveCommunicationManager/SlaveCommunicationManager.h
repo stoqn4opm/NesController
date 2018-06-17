@@ -9,7 +9,7 @@
 #ifndef SlaveCommunicationManager_hpp
 #define SlaveCommunicationManager_hpp
 
-#include <BaseCommunicationManager.hpp>
+#include <BaseCommunicationManager.h>
 
 class SlaveCommunicationManager: BaseCommunicationManager {
 private:
@@ -18,7 +18,6 @@ protected:
     virtual bool performModuleInit();
 public:
     static BaseCommunicationManager *shared();
-    void update();
 };
 
 #endif /* SlaveCommunicationManager_hpp */
