@@ -90,20 +90,20 @@
 #define configCHECK_FOR_STACK_OVERFLOW  1
 #define configUSE_MALLOC_FAILED_HOOK	1
 #define configMAX_PRIORITIES		    ( ( UBaseType_t ) 5 )
-#define configMINIMAL_STACK_SIZE	    ( ( UBaseType_t ) 64 )
-#define configIDLE_STACK_SIZE	   		( ( UBaseType_t ) 64 )
+#define configMINIMAL_STACK_SIZE	    ( ( UBaseType_t ) 50 )
+#define configIDLE_STACK_SIZE	   		( ( UBaseType_t ) 50 )
 #define configMAX_TASK_NAME_LEN		    ( 8 )
 #define configTOTAL_HEAP_SIZE           1200
 
 /* Timer definitions. */
-#define configUSE_TIMERS				0
-#define configTIMER_TASK_PRIORITY       ( ( UBaseType_t ) 7 )
-#define configTIMER_QUEUE_LENGTH        ( ( UBaseType_t ) 10 )
-#define configTIMER_TASK_STACK_DEPTH    configMINIMAL_STACK_SIZE
+// #define configUSE_TIMERS				0
+// #define configTIMER_TASK_PRIORITY       ( ( UBaseType_t ) 7 )
+// #define configTIMER_QUEUE_LENGTH        ( ( UBaseType_t ) 10 )
+// #define configTIMER_TASK_STACK_DEPTH    configMINIMAL_STACK_SIZE
 
-/* Co-routine definitions. */
-#define configUSE_CO_ROUTINES 		    0
-#define configMAX_CO_ROUTINE_PRIORITIES ( (UBaseType_t ) 2 )
+// /* Co-routine definitions. */
+// #define configUSE_CO_ROUTINES 		    0
+// #define configMAX_CO_ROUTINE_PRIORITIES ( (UBaseType_t ) 2 )
 
 /* Set the stack pointer type to be uint16_t, otherwise it defaults to unsigned long */
 #define portPOINTER_SIZE_TYPE			uint16_t
