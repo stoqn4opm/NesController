@@ -89,9 +89,9 @@
 #define configUSE_NEWLIB_REENTRANT      0
 #define configCHECK_FOR_STACK_OVERFLOW  1
 #define configUSE_MALLOC_FAILED_HOOK	1
-#define configMAX_PRIORITIES		    ( ( UBaseType_t ) 5 )
-#define configMINIMAL_STACK_SIZE	    ( ( UBaseType_t ) 50 )
-#define configIDLE_STACK_SIZE	   		( ( UBaseType_t ) 50 )
+#define configMAX_PRIORITIES		    ( ( UBaseType_t ) 3 )
+#define configMINIMAL_STACK_SIZE	    ( ( UBaseType_t ) 50 ) // maybe get back to 64 
+#define configIDLE_STACK_SIZE	   		( ( UBaseType_t ) 50 ) // maybe get back to 64 
 #define configMAX_TASK_NAME_LEN		    ( 8 )
 #define configTOTAL_HEAP_SIZE           1200
 

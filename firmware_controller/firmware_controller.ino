@@ -1,9 +1,10 @@
 #include "Arduino.h"
 #include <Arduino_FreeRTOS.h>
 #include <semphr.h>
-#include <SlaveCommunicationManager.h>
 #include <HEF4021BP.h>
+#include <SlaveBluetooth.h>
 #include <AVRPowerManager.h>
+
 
 //MARK: - Task Handles
 
@@ -27,10 +28,18 @@ void setup() {
 	hasNewDataSignal = xSemaphoreCreateBinary();
 	gateKeeperShiftRegister = xSemaphoreCreateMutex();
 
-	xTaskCreate(BluetoothInit, 			"1", 100, NULL, 4, &bluetoothInitTask);
-	xTaskCreate(Status, 				"2", 120, NULL, 4, &statusTask);
-	xTaskCreate(BluetoothCommunicate, 	"3", 120, NULL, 3, &bluetoothCommunicationTask);  
-	xTaskCreate(ReadInput, 				"4", 120, NULL, 2, &readInputTask);
+	pinMode(CONNECTION_CHECK_PIN, INPUT);
+    pinMode(MODE_CONTROL_KEY_PIN, OUTPUT);
+    pinMode(POWER_CONTROL_PIN, OUTPUT);
+    
+
+	if (!AVRUserDefaults::isBluetoothAlreadyConfigured()) {
+		xTaskCreate(BluetoothInit, "1", 100, NULL, 1, &bluetoothInitTask);
+	} else {
+		xTaskCreate(BluetoothCommunicate, "3", 120, NULL, 2, &bluetoothCommunicationTask);  
+		xTaskCreate(ReadInput, 			  "4", 120, NULL, 1, &readInputTask);
+	}
+	xTaskCreate(Status, "2", 120, NULL, 1, &statusTask);
 }
 
 void loop() { } 
@@ -40,25 +49,32 @@ void loop() { }
 
 static void BluetoothInit(void* pvParameters) {
 
-	while(1) {
-		SlaveCommunicationManager::shared();
-		vTaskPrioritySet(statusTask, 2);
-		vTaskDelete(NULL);
+	bool result = SlaveBluetooth::initModule();
+	while (result == false) {
+		CommonBluetooth::enterMode(MODE_SLEEP);
+		vTaskDelay(1000);
+		result = SlaveBluetooth::initModule();
 	}
+	xTaskCreate(BluetoothCommunicate, "3", 120, NULL, 2, &bluetoothCommunicationTask);  
+	xTaskCreate(ReadInput, 			  "4", 120, NULL, 1, &readInputTask);
+
+	vTaskDelete(NULL);
 }
 
 static void BluetoothCommunicate(void* pvParameters) {
 
+	    CommonBluetooth::enterMode(MODE_NORMAL);
+	    Serial.begin(BAUD_RATE_NORMAL);
 	while(1) {
 		if (xSemaphoreTake(hasNewDataSignal, portMAX_DELAY)) {
 			if (xSemaphoreTake(gateKeeperShiftRegister, 200)) {
 				int8_t buttonStates = shiftRegister.getButtonStates();
 				xSemaphoreGive(gateKeeperShiftRegister);
-				BluetoothPacket packet;
+				CommonBluetooth::BluetoothPacket packet;
 				packet.buttonData = buttonStates;
 				packet.deviceState = 0;
 				packet.isPopulated = true;
-				SlaveCommunicationManager::shared()->send(packet, false);
+				SlaveBluetooth::send(packet, false);
 			}  
 		}  
 	}
