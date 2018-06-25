@@ -3,7 +3,7 @@
 #include "AVRSleep.hpp"
 
 namespace {
-HEF4021BP shiftRegister(3, 4, 5); // clock, latch, data
+HEF4021BP shiftRegister(26, 27, 28); // clock, latch, data
 };
 
 /*

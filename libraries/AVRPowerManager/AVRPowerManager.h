@@ -34,12 +34,12 @@ private:
     void shutdown();
     void handleExpectedInput();
     void autoShutdownIfNeeded(int8_t input);
-    static AVRPowerManager *instance;
     void waitForStartState(int8_t input);
 
 //MARK: - Public Interface
 
   public:
+    static AVRPowerManager *instance;
     static AVRPowerManager *shared();
     void shutdownIfNeeded(int8_t input);
     bool wantsShutdown();

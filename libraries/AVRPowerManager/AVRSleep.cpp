@@ -8,16 +8,23 @@
 
 #include "AVRSleep.hpp"
 #include "Arduino.h"
+#include "AVRPowerManager.h"
 
 namespace {
-    int8_t wakePin = 2;
+    int8_t wakePin = 18;
 };
 
 void AVRSleep::setup() {
     pinMode(wakePin, INPUT);
 }
 
+void wakeUp() {
+    delete AVRPowerManager::instance;
+    AVRPowerManager::instance = 0;
+}
+
 void AVRSleep::shutdown() {
+    Serial.flush();
     /* Now is the time to set the sleep mode. In the Atmega8 datasheet
      * http://www.atmel.com/dyn/resources/prod_documents/doc2486.pdf on page 35
      * there is a list of sleep modes which explains which clocks and
@@ -66,7 +73,7 @@ void AVRSleep::shutdown() {
      * In all but the IDLE sleep modes only LOW can be used.
      */
     
-    attachInterrupt(digitalPinToInterrupt(wakePin), NULL, LOW); // use interrupt 0 (pin 2) and run NULL when wakePin gets LOW
+    attachInterrupt(digitalPinToInterrupt(wakePin), wakeUp, LOW); // use interrupt 0 (pin 2) and run NULL when wakePin gets LOW
     
     sleep_mode();            // here the device is actually put to sleep!!
     // THE PROGRAM CONTINUES FROM HERE AFTER WAKING UP
