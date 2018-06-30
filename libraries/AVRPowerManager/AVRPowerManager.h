@@ -19,7 +19,7 @@ private:
     AVRPowerManager();
     int8_t desiredState                   = 0b1100;
     int8_t startState                     = 0b0000;
-    int8_t delayBeforeExecutionInSecs   = 2;
+    uint8_t delayBeforeExecutionInSecs   = 2;
     int8_t autoShutDownDelay            = 120; // seconds
 
 //MARK: - Instance Variables

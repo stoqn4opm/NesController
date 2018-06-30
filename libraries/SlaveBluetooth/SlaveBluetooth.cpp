@@ -9,18 +9,18 @@
 #include "SlaveBluetooth.h"
 
 bool SlaveBluetooth::initModule() {
-   
+    
     CommonBluetooth::enterMode(MODE_ATCOMMAND);
-    if (CommonBluetooth::sendCommand((signed char *) "AT+ORGL",                  1).isOK == false) { return false; }
-    if (CommonBluetooth::sendCommand((signed char *) "AT+RMAAD",                 1).isOK == false) { return false; }
-    if (CommonBluetooth::sendCommand((signed char *) "AT+UART=9600,0,0",         1).isOK == false) { return false; }
-    if (CommonBluetooth::sendCommand((signed char *) "AT+NAME=NES Controller",   1).isOK == false) { return false; }
-    if (CommonBluetooth::sendCommand((signed char *) "AT+PSWD=0000",             1).isOK == false) { return false; }
-    if (CommonBluetooth::sendCommand((signed char *) "AT+ROLE=0",                1).isOK == false) { return false; }
-    if (CommonBluetooth::sendCommand((signed char *) "AT+CMODE=1",               1).isOK == false) { return false; }
-    if (CommonBluetooth::sendCommand((signed char *) "AT+SENM=3,2",              1).isOK == false) { return false; }
-    if (CommonBluetooth::sendCommand((signed char *) "AT+CLASS=73F4",            1).isOK == false) { return false; } // custom so that its harder to be discovered
-    if (CommonBluetooth::sendCommand((signed char *) "AT+IAC=9E8B33",            1).isOK == false) { return false; } // liac
+    if (CommonBluetooth::sendCommand((char *) "AT+ORGL",                  1).isOK == false) { return false; }
+    if (CommonBluetooth::sendCommand((char *) "AT+RMAAD",                 1).isOK == false) { return false; }
+    if (CommonBluetooth::sendCommand((char *) "AT+UART=9600,0,0",         1).isOK == false) { return false; }
+    if (CommonBluetooth::sendCommand((char *) "AT+NAME=NES Controller",   1).isOK == false) { return false; }
+    if (CommonBluetooth::sendCommand((char *) "AT+PSWD=0000",             1).isOK == false) { return false; }
+    if (CommonBluetooth::sendCommand((char *) "AT+ROLE=0",                1).isOK == false) { return false; }
+    if (CommonBluetooth::sendCommand((char *) "AT+CMODE=1",               1).isOK == false) { return false; }
+    if (CommonBluetooth::sendCommand((char *) "AT+SENM=3,2",              1).isOK == false) { return false; }
+    if (CommonBluetooth::sendCommand((char *) "AT+CLASS=73F4",            1).isOK == false) { return false; } // custom so that its harder to be discovered
+    if (CommonBluetooth::sendCommand((char *) "AT+IAC=9E8B33",            1).isOK == false) { return false; } // liac
     
     Serial.end();
     AVRUserDefaults::setIsBluetoothAlreadyConfigured(true);

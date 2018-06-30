@@ -9,18 +9,21 @@
 #ifndef CommonBluetooth_hpp
 #define CommonBluetooth_hpp
 
+#include "Arduino.h"
+#include <Arduino_FreeRTOS.h>
+
 //MARK: - Configuration
 
 #define BAUD_RATE_ATMODE 38400
 #define BAUD_RATE_NORMAL 9600
 
-#define CONNECTION_CHECK_PIN ((uint8_t) 13)
-#define MODE_CONTROL_KEY_PIN ((uint8_t) 12)
-#define POWER_CONTROL_PIN    ((uint8_t) 9)
+#define CONNECTION_CHECK_PIN ((uint8_t) 40) // 13
+#define MODE_CONTROL_KEY_PIN ((uint8_t) 41) // 12
+#define POWER_CONTROL_PIN    ((uint8_t) 39)  // 9
 
 #define MAX_MESSAGE_LENGTH  ((uint8_t) 35) // bytes longest messege will be +INQ:98D3:32:2168EC,73F4,FFB7<0D><0A>OK<0D><0A>
 #define BL_ADDRESS_LENGTH   ((uint8_t) 15) // bytes: 14 chars address + '\0'
-#define BL_BOOT_TIME        3000 // miliseconds
+#define BL_BOOT_TIME        (3000 / portTICK_PERIOD_MS) // miliseconds
 
 #define MODE_NORMAL    ((uint8_t) 0x00)
 #define MODE_ATCOMMAND ((uint8_t) 0x02)
@@ -32,9 +35,6 @@
 #define PACKET_TYPE_2 ((uint8_t) 0b01000000) // used for sending 2 keypresses
 #define PACKET_TYPE_3 ((uint8_t) 0b10000000) // used for sending battery percentage
 #define PACKET_TYPE_4 ((uint8_t) 0b11000000) // used for sending 6 keypresses
-
-#include "Arduino.h"
-#include <Arduino_FreeRTOS.h>
 
 namespace CommonBluetooth {
     
